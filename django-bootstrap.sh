@@ -56,15 +56,20 @@ sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; python3 mana
 handle_error $? "Error creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
 
 # copying application custom files
-for src_file in views.py urls.py; do
+for src_file in urls.py views.py; do
   cp -f $SRC_DIR/app/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/
 done
 
 # copying project custom files
-cp -f $SRC_DIR/proj/urls.py $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
+for src_file in urls.py settings.py; do
+  cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
+done
+
+# fix app name
 sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/urls.py
 
-cp -f $SRC_DIR/proj/settings.py $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
+mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
+cp -f $SRC_DIR/proj/templates/registration/login.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # create the tables for the default installed apps on the database
 echo
