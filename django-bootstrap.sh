@@ -109,5 +109,5 @@ echo "  sudo userdel -r $DJANGO_USERNAME"
 echo "and restart the configuration process, if necessary."
 echo
 echo "You can pack the application with:"
-echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude="*__pycache__*" -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
+echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
 echo
