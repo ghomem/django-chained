@@ -40,9 +40,9 @@ function print_output () {
   echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates"
   echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static"
   echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_APPNAME/views.py"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_APPNAME/models.py"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_APPNAME/urls.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/views.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/models.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/urls.py"
   echo
   echo "You can now start the application with:"
   echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJNAME/manage.py runserver\""
