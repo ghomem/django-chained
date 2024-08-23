@@ -3,7 +3,7 @@ This repository generates a Hello World Django application automating the steps 
 Steps to execute:
 
 * clone the repository
-* edit django-bootstrap.sh (see the CUSTOMIZE THIS section)
+* edit the configuration present at conf/vars.env
 * execute `./django-bootstrap.sh`
 * review the output
 
