@@ -5,5 +5,5 @@ from django.views.generic.base import TemplateView
 @login_required
 def index(request):
     #return HttpResponse("Hello, world. This is Django.")
-    return TemplateView.as_view(template_name="index.html"), name="home")
+    return TemplateView.as_view(template_name="index.html")
 
