@@ -69,6 +69,9 @@ done
 sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/urls.py
 
 mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
+
+cp -f $SRC_DIR/proj/templates/base.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+cp -f $SRC_DIR/proj/templates/home.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
 cp -f $SRC_DIR/proj/templates/registration/login.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # create the tables for the default installed apps on the database
