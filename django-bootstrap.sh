@@ -30,6 +30,39 @@ function handle_error () {
     fi
 }
 
+function print_output () {
+
+  echo
+  echo "Project is at $DJANGO_HOMEDIR/$DJANGO_PROJNAME"
+  echo "App is at $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME"
+  echo
+  echo "Important paths for customization"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/views.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/models.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/urls.py"
+  echo
+  echo "You can now start the application with:"
+  echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJNAME/manage.py runserver\""
+  echo
+  echo "The following URLs will be available:"
+  echo "  * App URL:   http://127.0.0.1:8000/$DJANGO_APPNAME"
+  echo "  * Admin URL: http://127.0.0.1:8000/admin"
+  echo
+  echo "To make these URLS available in your browser you can simply forward them with:"
+  echo "  ssh -L 8000:127.0.0.1:8000 USERNAME@REMOTEIP"
+  echo
+  echo "You can remove all Django related configuration with:"
+  echo "  sudo userdel -r $DJANGO_USERNAME"
+  echo "and restart the configuration process, if necessary."
+  echo
+  echo "You can pack the application with:"
+  echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" --exclude=\"*db.sqlite3\"* -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
+  echo
+
+}
 ### Main script ###
 
 my_id=$(id -u)
@@ -55,6 +88,8 @@ echo "Creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
 sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; python3 manage.py startapp $DJANGO_APPNAME"
 handle_error $? "Error creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
 
+echo "Creating project structure"
+
 # copying application custom files
 for src_file in urls.py views.py; do
   cp -f $SRC_DIR/app/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/
@@ -65,17 +100,20 @@ for src_file in urls.py settings.py; do
   cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
 done
 
-# fix app name on installed files
+mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
+
+for src_file in base.html toplevel.html index.html registration/login.html; do
+  cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
+done
+
+for static_dir in img css js; do
+  mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/$static_dir
+done
+
+# set the custom app name on installed files
 for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_APPNAME/urls.py; do
   sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
 done
-
-mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
-
-cp -f $SRC_DIR/proj/templates/base.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
-cp -f $SRC_DIR/proj/templates/toplevel.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
-cp -f $SRC_DIR/proj/templates/index.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
-cp -f $SRC_DIR/proj/templates/registration/login.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # create the tables for the default installed apps on the database
 echo
@@ -90,24 +128,5 @@ handle_error $? "Error migrating superuser $DJANGO_SUPERUSER_USERNAME"
 echo "  * username is $DJANGO_SUPERUSER_USERNAME"
 echo "  * password is $DJANGO_SUPERUSER_PASSWORD"
 
-echo
-echo "Project is at $DJANGO_HOMEDIR/$DJANGO_PROJNAME"
-echo "App is at $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME"
-echo
-echo "You can now start the application with:"
-echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJNAME/manage.py runserver\""
-echo
-echo "The following URLs will be available:"
-echo "  * App URL:   http://127.0.0.1:8000/$DJANGO_APPNAME"
-echo "  * Admin URL: http://127.0.0.1:8000/admin"
-echo
-echo "To make these URLS available in your browser you can simply forward them with:"
-echo "  ssh -L 8000:127.0.0.1:8000 USERNAME@REMOTEIP"
-echo
-echo "You can remove all Django related configuration with:"
-echo "  sudo userdel -r $DJANGO_USERNAME"
-echo "and restart the configuration process, if necessary."
-echo
-echo "You can pack the application with:"
-echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
-echo
+# print user friendly output
+print_output
