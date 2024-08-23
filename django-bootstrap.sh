@@ -72,6 +72,7 @@ mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 cp -f $SRC_DIR/proj/templates/base.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
 cp -f $SRC_DIR/proj/templates/home.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+cp -f $SRC_DIR/proj/templates/index.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
 cp -f $SRC_DIR/proj/templates/registration/login.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # create the tables for the default installed apps on the database
