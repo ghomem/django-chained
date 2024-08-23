@@ -59,7 +59,7 @@ function print_output () {
   echo "and restart the configuration process, if necessary."
   echo
   echo "You can pack the application with:"
-  echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" --exclude=\*db.sqlite3\* -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
+  echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" --exclude=\"*db.sqlite3\"* -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
   echo
 
 }
@@ -103,7 +103,7 @@ done
 mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 for src_file in base.html toplevel.html index.html registration/login.html; do
-  cp -f $src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
+  cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
 done
 
 for static_dir in img css js; do
