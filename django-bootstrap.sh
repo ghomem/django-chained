@@ -66,12 +66,14 @@ for src_file in urls.py settings.py; do
 done
 
 # fix app name
-sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/urls.py
+for installed_file in urls.py settings.py; do
+  sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/$installed_file
+done
 
 mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 cp -f $SRC_DIR/proj/templates/base.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
-cp -f $SRC_DIR/proj/templates/home.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+cp -f $SRC_DIR/proj/templates/toplevel.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
 cp -f $SRC_DIR/proj/templates/index.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
 cp -f $SRC_DIR/proj/templates/registration/login.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
