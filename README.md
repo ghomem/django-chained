@@ -8,3 +8,8 @@ Steps to execute:
 * review the output
 
 The process has been tested on Ubuntu 24.04.
+
+References:
+
+* https://docs.djangoproject.com/en/4.2/
+* https://learndjango.com/tutorials/django-login-and-logout-tutorial
