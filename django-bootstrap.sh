@@ -1,23 +1,14 @@
 #!/bin/bash
 
-### BEGIN CUSTOMIZE THIS ###
-
-# no dashes allowed
-DJANGO_PROJNAME=djangoproject
-DJANGO_APPNAME=djangoapp
-DJANGO_HOMEDIR=/var/opt/django
-DJANGO_USERNAME=django
-
-DJANGO_SUPERUSER_USERNAME=djadmin
-DJANGO_SUPERUSER_EMAIL=root@localhost.local
-DJANGO_SUPERUSER_PASSWORD=$(makepasswd)
-
-### END CUSTOMIZE THIS ###
+# load variables from configuration file
+. conf/vars.env
 
 E_OK=0
 E_ERR=1
 
+DJANGO_SUPERUSER_PASSWORD=$(makepasswd)
 DJANGO_PACKAGES="python3-django python3-djangorestframework python3-psycopg2 gunicorn postgresql-client vim makepasswd"
+
 SRC_DIR=./src
 
 function handle_error () {
