@@ -106,6 +106,9 @@ for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJA
   sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
 done
 
+# make sure all the content belongs do DJANGO_USERNAME
+chown -R $DJANGO_USERNAME:$DJANGO_USERNAME $DJANGO_HOMEDIR
+
 # create the tables for the default installed apps on the database
 echo
 sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; python3 manage.py migrate"
