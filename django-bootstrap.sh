@@ -55,12 +55,27 @@ echo "Creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
 sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; python3 manage.py startapp $DJANGO_APPNAME"
 handle_error $? "Error creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
 
-for src_file in views.py urls.py; do
+# copying application custom files
+for src_file in urls.py views.py; do
   cp -f $SRC_DIR/app/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/
 done
 
-cp -f $SRC_DIR/proj/urls.py $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
-sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/urls.py
+# copying project custom files
+for src_file in urls.py settings.py; do
+  cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
+done
+
+# fix app name on installed files
+for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_APPNAME/urls.py; do
+  sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
+done
+
+mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
+
+cp -f $SRC_DIR/proj/templates/base.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+cp -f $SRC_DIR/proj/templates/toplevel.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+cp -f $SRC_DIR/proj/templates/index.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+cp -f $SRC_DIR/proj/templates/registration/login.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # create the tables for the default installed apps on the database
 echo
