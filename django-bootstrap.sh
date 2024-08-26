@@ -47,7 +47,7 @@ for src_file in urls.py views.py; do
 done
 
 # copying project custom files
-for src_file in urls.py settings.py; do
+for src_file in urls.py settings.py custom_processor.py; do
   cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
 done
 
@@ -62,10 +62,14 @@ for static_dir in img css js; do
   mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/$static_dir
 done
 
-# set the custom app name on installed files
-for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_APPNAME/urls.py; do
-  sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
-done
+# Prettify, if desired
+if [ PRETTIFY="yes" ]; then
+  cp -f $SRC_DIR/proj/templates/base.pretty.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/base.html
+  cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/css/
+fi
+
+sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py
+sed -i "s/DJANGO_PROJNAME/$DJANGO_PROJNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py
 
 # make sure all the content belongs do DJANGO_USERNAME
 chown -R $DJANGO_USERNAME:$DJANGO_USERNAME $DJANGO_HOMEDIR

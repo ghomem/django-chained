@@ -1,0 +1,21 @@
+<!-- templates/base.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}DJANGO_APPNAME{% endblock %}</title>
+  <meta name="viewport" content="width=device-width">
+  <meta name="color-scheme" content="light dark">
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/pico.min.css' %}">
+</head>
+
+<body>
+  <main class="container" style="transform: scale(0.8); width: 500px;">
+    {% block content %}
+    {% endblock %}
+  </main>
+</body>
+
+</html>
