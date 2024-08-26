@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# load variables from configuration file
-. conf/vars.env
-
 E_OK=0
 E_ERR=1
 
@@ -11,49 +8,12 @@ DJANGO_PACKAGES="python3-django python3-djangorestframework python3-psycopg2 gun
 
 SRC_DIR=./src
 
-function handle_error () {
-    rc=$1
-    err_message=$2
+# load variables from configuration file
+. conf/vars.env
 
-    if [ "0" != "$rc" ]; then
-        echo $err_message
-        exit $rc
-    fi
-}
+# load functions from function library file
+. lib/functions
 
-function print_output () {
-
-  echo
-  echo "Project is at $DJANGO_HOMEDIR/$DJANGO_PROJNAME"
-  echo "App is at $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME"
-  echo
-  echo "Important paths for customization"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/views.py"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/models.py"
-  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/urls.py"
-  echo
-  echo "You can now start the application with:"
-  echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJNAME/manage.py runserver\""
-  echo
-  echo "The following URLs will be available:"
-  echo "  * App URL:   http://127.0.0.1:8000/$DJANGO_APPNAME"
-  echo "  * Admin URL: http://127.0.0.1:8000/admin"
-  echo
-  echo "To make these URLS available in your browser you can simply forward them with:"
-  echo "  ssh -L 8000:127.0.0.1:8000 USERNAME@REMOTEIP"
-  echo
-  echo "You can remove all Django related configuration with:"
-  echo "  sudo userdel -r $DJANGO_USERNAME"
-  echo "and restart the configuration process, if necessary."
-  echo
-  echo "You can pack the application with:"
-  echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" --exclude=\"*db.sqlite3\"* -zcf /tmp/$DJANGO_PROJNAME.tar.gz $DJANGO_PROJNAME"
-  echo
-
-}
 ### Main script ###
 
 my_id=$(id -u)
@@ -93,6 +53,7 @@ done
 
 mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
+# copying the HTML templates
 for src_file in base.html toplevel.html index.html registration/login.html; do
   cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
 done
