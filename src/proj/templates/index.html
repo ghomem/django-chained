@@ -2,7 +2,7 @@
 
 {% block content %}
 
-<article>Hello world and in particular {{ user.username }}. This is Django speaking from inside the {{ APP_NAME }} app.</article>
+<article>Hello world and in particular {{ user.username }}. This is Django speaking from inside the {{ APP_DISPLAY_NAME }} app.</article>
 
 <form action="{% url 'logout' %}" method="post">
   {% csrf_token %}

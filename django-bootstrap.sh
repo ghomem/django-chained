@@ -31,57 +31,59 @@ adduser --system --home=$DJANGO_HOMEDIR --disabled-password --group --shell=/bin
 handle_error $? "Error adding user $DJANGO_USERNAME"
 
 echo
-echo "Creating project $DJANGO_PROJNAME"
-sudo su - $DJANGO_USERNAME -c "django-admin startproject $DJANGO_PROJNAME"
-handle_error $? "Error creating project $DJANGO_PROJNAME"
+echo "Creating project $DJANGO_PROJ_NAME"
+sudo su - $DJANGO_USERNAME -c "django-admin startproject $DJANGO_PROJ_NAME"
+handle_error $? "Error creating project $DJANGO_PROJ_NAME"
 
-echo "Creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
-sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; python3 manage.py startapp $DJANGO_APPNAME"
-handle_error $? "Error creating app $DJANGO_APPNAME inside project $DJANGO_PROJNAME"
+echo "Creating app $DJANGO_APP_NAME inside project $DJANGO_PROJ_NAME"
+sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME; python3 manage.py startapp $DJANGO_APP_NAME"
+handle_error $? "Error creating app $DJANGO_APP_NAME inside project $DJANGO_PROJ_NAME"
 
 echo "Creating project structure"
 
 # copying application custom files
 for src_file in urls.py views.py; do
-  cp -f $SRC_DIR/app/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_APPNAME/
+  cp -f $SRC_DIR/app/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME/
 done
 
 # copying project custom files
 for src_file in urls.py settings.py custom_processor.py; do
-  cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
+  cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME
 done
 
-mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
+mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/templates/registration
 
 # copying the HTML templates
 for src_file in base.html toplevel.html index.html registration/login.html; do
-  cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
+  cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/templates/$src_file
 done
 
 for static_dir in img css js; do
-  mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/$static_dir
+  mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/static/$static_dir
 done
 
 # Prettify, if desired
 if [ PRETTIFY="yes" ]; then
-  cp -f $SRC_DIR/proj/templates/base.pretty.html $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/base.html
-  cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/css/
+  cp -f $SRC_DIR/proj/templates/base.pretty.html $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/templates/base.html
+  cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/static/css/
 fi
 
-sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py
-sed -i "s/DJANGO_PROJNAME/$DJANGO_PROJNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME/settings.py
+# replace app name, app display name and project name
+sed -i "s/DJANGO_APP_NAME/$DJANGO_APP_NAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py
+sed -i "s/DJANGO_APP_DISPLAY_NAME/$DJANGO_APP_DISPLAY_NAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py
+sed -i "s/DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py
 
 # make sure all the content belongs do DJANGO_USERNAME
 chown -R $DJANGO_USERNAME:$DJANGO_USERNAME $DJANGO_HOMEDIR
 
 # create the tables for the default installed apps on the database
 echo
-sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; python3 manage.py migrate"
+sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME; python3 manage.py migrate"
 handle_error $? "Error migrating database tables"
 
 # creating superuser
 echo
-sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJNAME; DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD python3 manage.py createsuperuser --no-input --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL"
+sudo su - $DJANGO_USERNAME -c "cd $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME; DJANGO_SUPERUSER_PASSWORD=$DJANGO_SUPERUSER_PASSWORD python3 manage.py createsuperuser --no-input --username $DJANGO_SUPERUSER_USERNAME --email $DJANGO_SUPERUSER_EMAIL"
 handle_error $? "Error migrating superuser $DJANGO_SUPERUSER_USERNAME"
 
 echo "  * username is $DJANGO_SUPERUSER_USERNAME"
