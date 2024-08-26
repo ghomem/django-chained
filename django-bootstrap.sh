@@ -68,7 +68,9 @@ if [ PRETTIFY="yes" ]; then
   cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/static/css/
 fi
 
+# replace app name, app display name and project name
 sed -i "s/DJANGO_APP_NAME/$DJANGO_APP_NAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py
+sed -i "s/DJANGO_APP_DISPLAY_NAME/$DJANGO_APP_DISPLAY_NAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py
 sed -i "s/DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py
 
 # make sure all the content belongs do DJANGO_USERNAME
