@@ -69,9 +69,9 @@ if [ PRETTIFY="yes" ]; then
 fi
 
 # set the custom app name on installed files
-for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_PROJNAME/../templates/base.html $DJANGO_APPNAME/urls.py; do
-  sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
-done
+#for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_PROJNAME/../templates/base.html $DJANGO_APPNAME/urls.py; do
+#  sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
+#done
 
 for installed_file in $DJANGO_PROJNAME/settings.py $DJANGO_PROJNAME/../templates/base.html; do
   sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
