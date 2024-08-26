@@ -63,7 +63,7 @@ for static_dir in img css js; do
 done
 
 # Prettify, if desired
-if [ PRETTIFY="yes" ]; then
+if [ $PRETTIFY="yes" ]; then
   cp -f $SRC_DIR/proj/templates/base.pretty.html $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/templates/base.html
   cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/static/css/
 fi
