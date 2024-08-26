@@ -8,5 +8,5 @@ def get_app_name(request):
 
 def get_app_display_name(request):
     return {
-        'APP_NAME': settings.APP_DISPLAY_NAME,
+        'APP_DISPLAY_NAME': settings.APP_DISPLAY_NAME,
     }
