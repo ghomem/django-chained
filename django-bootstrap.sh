@@ -54,7 +54,6 @@ done
 mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # copying the HTML templates
-
 for src_file in base.html toplevel.html index.html registration/login.html; do
   cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
 done
