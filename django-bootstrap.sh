@@ -54,6 +54,7 @@ done
 mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/registration
 
 # copying the HTML templates
+
 for src_file in base.html toplevel.html index.html registration/login.html; do
   cp -f $SRC_DIR/proj/templates/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/$src_file
 done
@@ -62,8 +63,14 @@ for static_dir in img css js; do
   mkdir -p $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/$static_dir
 done
 
+# Prettify, if desired
+if [ PRETTIFY="yes" ]; then
+  cp -f $SRC_DIR/proj/templates/base.html.pretty $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+  cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/css/
+fi
+
 # set the custom app name on installed files
-for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_APPNAME/urls.py; do
+for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJANGO_PROJNAME/templates/base.html $DJANGO_APPNAME/urls.py; do
   sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
 done
 
