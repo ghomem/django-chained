@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<article>Hello world and in particular {{ user.username }}. This is Django speaking.</article>
+
+<form action="{% url 'logout' %}" method="post">
+  {% csrf_token %}
+  <button type="submit">Log Out</button>
+</form>
+
+{% endblock %}
