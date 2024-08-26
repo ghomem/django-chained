@@ -3,7 +3,7 @@ from django.urls import include, path
 from django.views.generic.base import TemplateView
 from django.conf import settings
 
-app_name=settings.APP_NAME
+app_name = settings.APP_NAME
 
 urlpatterns = [
     path(f"{app_name}/", include(f"{app_name}.urls")),
