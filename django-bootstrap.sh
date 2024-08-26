@@ -65,7 +65,7 @@ done
 
 # Prettify, if desired
 if [ PRETTIFY="yes" ]; then
-  cp -f $SRC_DIR/proj/templates/base.html.pretty $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/
+  cp -f $SRC_DIR/proj/templates/base.html.pretty $DJANGO_HOMEDIR/$DJANGO_PROJNAME/templates/base.html
   cp -f $SRC_DIR/proj/static/css/pico.min.css $DJANGO_HOMEDIR/$DJANGO_PROJNAME/static/css/
 fi
 
