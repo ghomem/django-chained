@@ -73,6 +73,10 @@ for installed_file in $DJANGO_PROJNAME/urls.py $DJANGO_PROJNAME/settings.py $DJA
   sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
 done
 
+for installed_file in $DJANGO_PROJNAME/settings.py $DJANGO_PROJNAME/../templates/base.html; do
+  sed -i "s/DJANGO_APPNAME/$DJANGO_APPNAME/g" $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$installed_file
+done
+
 # make sure all the content belongs do DJANGO_USERNAME
 chown -R $DJANGO_USERNAME:$DJANGO_USERNAME $DJANGO_HOMEDIR
 

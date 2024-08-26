@@ -128,6 +128,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# placeholder for string substritution
 APP_NAME = "DJANGO_APPNAME"
 
 LOGIN_REDIRECT_URL  = APP_NAME
