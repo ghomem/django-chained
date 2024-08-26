@@ -47,7 +47,7 @@ for src_file in urls.py views.py; do
 done
 
 # copying project custom files
-for src_file in urls.py settings.py; do
+for src_file in urls.py settings.py context_processor.py; do
   cp -f $SRC_DIR/proj/$src_file $DJANGO_HOMEDIR/$DJANGO_PROJNAME/$DJANGO_PROJNAME
 done
 
