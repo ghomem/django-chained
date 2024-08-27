@@ -39,7 +39,7 @@ function print_output () {
   echo "and restart the configuration process, if necessary."
   echo
   echo "You can pack the application with:"
-  echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" --exclude=\"*db.sqlite3\"* -zcf /tmp/$DJANGO_PROJ_NAME.tar.gz $DJANGO_PROJ_NAME"
+  echo "  sudo tar -C $DJANGO_HOMEDIR/ --exclude=\"*__pycache__*\" --exclude=\"*db.sqlite3*\" -zcf /tmp/$DJANGO_PROJ_NAME.tar.gz $DJANGO_PROJ_NAME"
   echo
 
 }
