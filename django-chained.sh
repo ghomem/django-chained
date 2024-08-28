@@ -21,6 +21,7 @@ test $my_id -eq 0
 handle_error $? "Please run this script as root."
 
 echo "Installing Django related packages"
+apt-get update &> /dev/null
 apt-get install -y -q=2 $DJANGO_PACKAGES &> /dev/null
 handle_error $? "Error installing packages"
 
