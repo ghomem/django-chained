@@ -3,7 +3,6 @@
 E_OK=0
 E_ERR=1
 
-DJANGO_SUPERUSER_PASSWORD=$(makepasswd)
 DJANGO_PACKAGES="python3-django python3-djangorestframework python3-psycopg2 gunicorn postgresql-client vim makepasswd"
 
 SRC_DIR=./src
@@ -24,6 +23,8 @@ handle_error $? "Please run this script as root."
 echo "Installing Django related packages"
 apt-get install -y -q=2 $DJANGO_PACKAGES &> /dev/null
 handle_error $? "Error installing packages"
+
+DJANGO_SUPERUSER_PASSWORD=$(makepasswd)
 
 echo "Creating user $DJANGO_USERNAME for Django execution"
 echo
