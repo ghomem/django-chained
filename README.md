@@ -6,15 +6,17 @@ Steps to execute:
 * edit the configuration present at conf/vars.env
 * execute `sudo ./django-chained.sh`
 * review the output
-
+      
 Generated application features:
-
+    
 * project name and app name you chose
 * Hello World text protected by authentication
 * decent looks if PRETTIFY=yes (uses pico.css), ugly looks otherwise
 * acceptable logout behaviour differentiating between the normal app and /admin
 
-The process has been tested on Ubuntu 24.04.
+The generated application can be used as a starting point for a real application.
+
+The process has been tested on Ubuntu 24.04 with packages from the Ubuntu repositories.
 
 References:
 
