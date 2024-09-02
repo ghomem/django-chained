@@ -1,4 +1,4 @@
-This repository generates a Hello World Django application automating the steps explained in the Django documentation. It can serve as a way to speed up Django onboardings. It is called Django chained because the manual creation of a Django application has too many degress of freedom.
+This repository generates a Hello World Django application automating some annoying, and otherwise manual, steps explained in the Django documentation. It can serve as a way to speed up Django onboardings. It is called Django chained because the manual creation of a Django application has too many degress of freedom.
 
 Steps to execute:
 
@@ -6,6 +6,13 @@ Steps to execute:
 * edit the configuration present at conf/vars.env
 * execute `sudo ./django-chained.sh`
 * review the output
+
+Generated application features:
+
+* project name and app name you chose
+* Hello World text protected by authentication
+* decent looks if PRETTIFY=yes (uses pico.css), ugly looks otherwise
+* acceptable logout behaviour differentiating between the normal app and /admin
 
 The process has been tested on Ubuntu 24.04.
 
