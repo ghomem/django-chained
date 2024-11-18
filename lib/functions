@@ -25,7 +25,7 @@ function print_output () {
   echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME/urls.py"
   echo
   echo "You can now start the application with:"
-  echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/manage.py runserver\""
+  echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/manage.py runserver --insecure\""
   echo
   echo "The following URLs will be available:"
   echo "  * App URL:   http://127.0.0.1:8000/$DJANGO_APP_NAME"
