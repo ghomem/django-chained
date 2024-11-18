@@ -24,7 +24,7 @@ echo "Creating user $DJANGO_USERNAME for Django execution"
 echo
 
 # checking if user exists
-getent passwd |grep -w "^django"
+getent passwd |grep -w "^$DJANGO_USERNAME" &> /dev/null
 let result=1-$?
 handle_error $result "User $DJANGO_USERNAME already exists. This app might have been installed already."
 

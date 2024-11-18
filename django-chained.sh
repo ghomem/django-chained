@@ -20,17 +20,22 @@ my_id=$(id -u)
 test $my_id -eq 0
 handle_error $? "Please run this script as root."
 
-echo "Installing Django related packages"
-apt-get update &> /dev/null
-apt-get install -y -q=2 $DJANGO_PACKAGES &> /dev/null
-handle_error $? "Error installing packages"
-
 DJANGO_SUPERUSER_PASSWORD=$(makepasswd)
+
+# checking if user exists
+getent passwd |grep -w "^$DJANGO_USERNAME" &> /dev/null
+let result=1-$?
+handle_error $result "User $DJANGO_USERNAME already exists. This app might have been installed already."
 
 echo "Creating user $DJANGO_USERNAME for Django execution"
 echo
 adduser --system --home=$DJANGO_HOMEDIR --disabled-password --group --shell=/bin/bash $DJANGO_USERNAME
 handle_error $? "Error adding user $DJANGO_USERNAME"
+
+echo "Installing Django related packages"
+apt-get update &> /dev/null
+apt-get install -y -q=2 $DJANGO_PACKAGES &> /dev/null
+handle_error $? "Error installing packages"
 
 echo
 echo "Creating project $DJANGO_PROJ_NAME"
