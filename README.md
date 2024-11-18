@@ -1,12 +1,12 @@
-This repository generates a Hello World Django application automating some annoying, and otherwise manual, steps explained in the Django documentation. It can serve as a way to speed up Django onboardings. It is called Django chained because the manual creation of a Django application has too many degress of freedom.
+This repository generates a Hello World Django application automating some annoying, and otherwise manual, steps explained in the Django documentation. It can serve as a way to speed up Django onboardings. It is called Django chained because the manual creation of a Django application has too many degrees of freedom.
 
 Steps to execute:
 
 * clone the repository
 * edit the configuration present at conf/vars.env
 * execute `sudo ./django-chained.sh`
-* review the output and iterate
-* package the applications with `sudo ./package.sh`
+* review the output and iterate on the previous steps
+* package the customized application with `sudo ./package.sh`
 * bring the content to a new git repository, etc..
 
 Generated application features:
