@@ -5,10 +5,12 @@ Steps to execute:
 * clone the repository
 * edit the configuration present at conf/vars.env
 * execute `sudo ./django-chained.sh`
-* review the output
-      
+* review the output and iterate
+* package the applications with `sudo ./package.sh`
+* bring the content to a new git repository, etc..
+
 Generated application features:
-    
+
 * project name and app name you chose
 * Hello World text protected by authentication
 * decent looks if PRETTIFY=yes (uses pico.css), ugly looks otherwise

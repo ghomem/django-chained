@@ -3,7 +3,7 @@
 E_OK=0
 E_ERR=1
 
-DJANGO_PACKAGES="python3-django python3-djangorestframework python3-psycopg2 gunicorn postgresql-client vim makepasswd"
+DJANGO_PACKAGES="python3-django python3-djangorestframework python3-psycopg2 gunicorn postgresql-client vim makepasswd rsync"
 
 SRC_DIR=./src
 
