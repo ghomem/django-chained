@@ -1,0 +1,58 @@
+#!/bin/bash
+
+function handle_error () {
+    rc=$1
+    err_message=$2
+
+    if [ "0" != "$rc" ]; then
+        echo $err_message
+        exit $rc
+    fi
+}
+
+function print_output () {
+
+  echo
+  echo "Project is at $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME"
+  echo "App is at $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME"
+  echo
+  echo "Important paths for customization"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/templates"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/static"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_PROJ_NAME/settings.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME/views.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME/models.py"
+  echo "  * $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME/urls.py"
+  echo
+  echo "You can now start the application with:"
+  echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/manage.py runserver 0.0.0.0:$DJANGO_PORT\""
+  echo
+  echo "The following URLs will be available:"
+  echo "  * App URL:   http://127.0.0.1:$DJANGO_PORT/$DJANGO_APP_NAME"
+  echo "  * Admin URL: http://127.0.0.1:$DJANGO_PORT/admin"
+  echo
+  echo "To make these URLS available in your browser you can simply forward them with:"
+  echo "  ssh -L $DJANGO_PORT:127.0.0.1:$DJANGO_PORT USERNAME@REMOTEIP"
+  echo
+  echo "You can remove all Django related configuration with:"
+  echo "  sudo userdel -r $DJANGO_USERNAME"
+  echo "and restart the configuration process, if necessary."
+  echo
+
+}
+
+function print_output_deploy () {
+
+  echo
+  echo "Project is at $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME"
+  echo "App is at $DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/$DJANGO_APP_NAME"
+  echo
+  echo "In case the appplication is not running you can now start it with:"
+  echo "  sudo su - $DJANGO_USERNAME python3 -c \"$DJANGO_HOMEDIR/$DJANGO_PROJ_NAME/manage.py runserver 0.0.0.0:$DJANGO_PORT\""
+  echo
+  echo "The following URLs will be available:"
+  echo "  * App URL:   http://127.0.0.1:$DJANGO_PORT/$DJANGO_APP_NAME"
+  echo "  * Admin URL: http://127.0.0.1:$DJANGO_PORT/admin"
+  echo
+
+}

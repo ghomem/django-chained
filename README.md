@@ -15,6 +15,8 @@ Generated application features:
 * Hello World text protected by authentication
 * decent looks if PRETTIFY=yes (uses pico.css), ugly looks otherwise
 * acceptable logout behaviour differentiating between the normal app and /admin
+* easy installation + initial deployment with `sudo ./install.sh`
+* easy deployments with `sudo ./deploy.sh`
 
 The generated application can be used as a starting point for a real application.
 
